@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '2.0.1'
+}
+
+group 'BikeManager'
+version '0.1-Beta'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = 'application.Main'
+
+defaultTasks 'run'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // https://mvnrepository.com/artifact/org.hsqldb/hsqldb
+    testCompile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.1'
+
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "4.1"
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
