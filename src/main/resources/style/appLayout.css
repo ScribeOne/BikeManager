@@ -1,0 +1,16 @@
+.root {
+  -fx-base: rgba(60, 63, 65, 255);
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
+}
+
+.utilityBar{
+
+}
+
+.detailGrid{
+  -fx-background-radius: 2.5;
+  -fx-border-radius: 2.5;
+  -fx-border-color: #2a2a2a ;
+  -fx-border-width: .8;
+}

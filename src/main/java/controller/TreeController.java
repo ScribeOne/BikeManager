@@ -12,17 +12,49 @@ public class TreeController {
 
   private TreeView<String> treeView;
   private List<String> categories;
+  private AppController appController;
 
-  public TreeController(TreeView<String> treeView, List<String> categories) {
+  public TreeController(TreeView<String> treeView, List<String> categories,
+      AppController appController) {
+    this.appController = appController;
     this.treeView = treeView;
     this.categories = categories;
-    initListener();
+    initTreeListener();
+  }
+
+
+  private void initTreeListener() {
+    treeView.getSelectionModel().selectedItemProperty()
+        .addListener((observable, oldValue, newValue) -> {
+          boolean category = false;
+
+          for (String cat : categories) {
+            if (cat.equals(newValue.getValue())) {
+              category = true;
+            }
+          }
+          if (!category) {
+            int ID = parseToInt(newValue.getValue());
+            if (ID != -1) {
+
+              appController.updateView(ID);
+
+            }
+          }
+        });
+  }
+
+  private int parseToInt(String string) {
+    try {
+      return Integer.parseInt(string);
+    } catch (NumberFormatException e) {
+      return -1;
+    }
   }
 
 
   private void initListener() {
     ObjectProperty<String> selectedBikeProperty = new SimpleObjectProperty<>();
-
     selectedBikeProperty.bind(Bindings.createObjectBinding(() -> {
       TreeItem<String> selectedBike = (TreeItem<String>) treeView.getSelectionModel()
           .getSelectedItem();
@@ -31,16 +63,16 @@ public class TreeController {
 
     selectedBikeProperty.addListener((observable, oldValue, newValue) -> {
       boolean category = false;
-      if (!newValue.equals(oldValue)) {
-        for (String cat : categories) {
-          if (cat.equals(newValue)) {
-            category = true;
-          }
-        }
-        if (!category) {
-          System.out.println("Bike was clicked in the Tree");
+
+      for (String cat : categories) {
+        if (cat.equals(newValue)) {
+          category = true;
         }
       }
+      if (!category) {
+        System.out.println("Bike was clicked in the Tree");
+      }
+
     });
   }
 
@@ -48,7 +80,7 @@ public class TreeController {
     TreeItem<String> root = new TreeItem<>("Root Node");
     root.setExpanded(true);
     for (Bike bike : bikeList) {
-      TreeItem<String> bikeLeaf = new TreeItem<>(bike.getModelName());
+      TreeItem<String> bikeLeaf = new TreeItem<>(bike.getId() + "");
       boolean found = false;
       for (TreeItem<String> categoryNode : root.getChildren()) {
         if (categoryNode.getValue().contentEquals(bike.getCategory())) {
@@ -63,12 +95,7 @@ public class TreeController {
         root.getChildren().add(categoryNode);
       }
     }
-
-    TreeItem<String> otherNode = new TreeItem<>("other");
-    root.getChildren().add(otherNode);
-    for (int i = 1; i < 10; i++) {
-      otherNode.getChildren().add(new TreeItem<>("Random Bike " + i));
-    }
     treeView.setRoot(root);
   }
+
 }

@@ -2,6 +2,7 @@ package model;
 
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,17 +15,12 @@ public class AppModel {
   private List<Bike> bikes;
 
   public AppModel() {
-    createTestData();
+    bikes = new LinkedList<>();
   }
 
-  private void createTestData() {
-    bikes = Arrays.asList(
-        new Bike("Rotwild", "X2", "erasmus", 26),
-        new Bike("Trek", "Fuel 2.0", "private", 26),
-        new Bike("Peugeot", "Milano", "erasmus", 28),
-        new Bike("Specialized", "Stumpjumper", "own", 26),
-        new Bike("Diamondback","Tour","erasmus",28)
-    );
+
+  public void setBikes(List<Bike> bikes) {
+    this.bikes = bikes;
   }
 
   public List<String> getCategories() {

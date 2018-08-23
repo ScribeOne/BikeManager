@@ -5,19 +5,21 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Bike {
 
+  private int id;
   private SimpleStringProperty manufacturer;
   private SimpleStringProperty modelName;
   private SimpleStringProperty category;
   private SimpleIntegerProperty wheelSize;
 
-  public Bike(String manufacturer, String model, String category, int wheelsize) {
+  public Bike(Integer id, String manufacturer, String model, String category, int wheelsize) {
     this.manufacturer = new SimpleStringProperty(manufacturer);
     this.modelName = new SimpleStringProperty(model);
     this.category = new SimpleStringProperty(category);
     this.wheelSize = new SimpleIntegerProperty(wheelsize);
+    this.id = id;
   }
 
-  public Bike(){
+  public Bike() {
     this.manufacturer = new SimpleStringProperty("Test");
     this.modelName = new SimpleStringProperty("Test");
     this.category = new SimpleStringProperty("Test");
@@ -50,6 +52,10 @@ public class Bike {
 
   public int getWheelSize() {
     return wheelSize.get();
+  }
+
+  public int getId() {
+    return id;
   }
 
   public void setWheelSize(int wheelSize) {
