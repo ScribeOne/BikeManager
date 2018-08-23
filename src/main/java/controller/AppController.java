@@ -1,8 +1,5 @@
 package controller;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,16 +37,22 @@ public class AppController {
   public AppController(FXMLController fxmlController) {
     this.fxmlController = fxmlController;
     appModel = new AppModel();
+    initMenuItems();
+  }
+
+  private void initMenuItems() {
+    fxmlController.getCloseItem().setOnAction(event -> System.exit(0));
   }
 
 
   private List<Bike> createTestData() {
     return Arrays.asList(
-        new Bike(0, "Rotwild", "X2", "erasmus", 26),
+        new Bike(0, "Rotwild", "X2", "private", 26),
         new Bike(1, "Trek", "Fuel 2.0", "private", 26),
         new Bike(2, "Peugeot", "Milano", "erasmus", 28),
         new Bike(3, "Specialized", "Stumpjumper", "own", 26),
-        new Bike(4, "Diamondback", "Tour", "erasmus", 28)
+        new Bike(4, "Diamondback", "Tour", "erasmus", 28),
+        new Bike(5, "Unknown", "Unknown", "own", 28)
     );
   }
 
@@ -75,6 +78,7 @@ public class AppController {
       fxmlController.getBikeID().setText(String.format("%s", id));
       fxmlController.getManufacturer().setText(bike.getManufacturer());
       fxmlController.getModel().setText(bike.getModelName());
+      fxmlController.getCenterImage().setImage(new Image("/images/BikeArt-BrooklynNY.jpg"));
     }
   }
 

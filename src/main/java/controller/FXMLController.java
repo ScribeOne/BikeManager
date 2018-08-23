@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
@@ -59,6 +60,10 @@ public class FXMLController implements Initializable {
 
   @FXML
   private TextField blabla;
+
+  @FXML
+  private MenuItem closeItem;
+
 
 
 
@@ -118,6 +123,10 @@ public class FXMLController implements Initializable {
 
   public TextField getModel() {
     return model;
+  }
+
+  public MenuItem getCloseItem() {
+    return closeItem;
   }
 
   public TextField getCondition() {
